@@ -1,5 +1,11 @@
 extends layout
 
+block header
+	title= "Log In or Sign Up!"
+	link(href="/stylesheets/authenticate.css", rel="stylesheet")
+	script(src="/javascripts/index.js", type="text/javascript")
+
 block content
-  h1= title
-  p Welcome to #{title}
+	div(class="pane")
+		form(id="authform", method="post", action="/authenticate")
+			input(id="submitbtn", type="submit", value="Log In!")
