@@ -36,3 +36,5 @@ data/*
 *.swp
 *.swo
 .DS_Store
+
+public/stylesheets/*.css
