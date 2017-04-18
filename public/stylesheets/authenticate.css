@@ -6,7 +6,8 @@ body {
   box-sizing: border-box;
 }
 form input[type=button],
-form input[type=submit] {
+form input[type=submit],
+.button {
   min-width: 120px;
   display: inline-block;
   background-color: #2cbc00;
