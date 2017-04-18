@@ -12,3 +12,37 @@ colors["action-pane"] = white;
 colors["text-dark"] = jet;
 colors["bad"] = red_salsa;
 colors["good"] = kelly_green;
+colors["text-light"] = white;
+colors["dark-border"] = jet;
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+form input[type=button],
+form input[type=submit] {
+	min-width: 120px;
+	display: inline-block;
+	background-color: colors["good"];
+	border: 0;
+	font-size: 20pt;
+	color: colors["text-light"];
+	padding: 16px;
+	margin: 8px;
+}
+
+form input[type=text],
+form input[type=password],
+form input[type="email"] {
+	width: 100%;
+	margin-bottom: 8px;
+	border: 1px solid colors["dark-border"];
+	font-size: 20pt;
+	padding: 4px;
+	border-radius: 4px;
+}
