@@ -1,10 +1,13 @@
 //Color theme: coolors.co/00b6ff-ffffff-2e3532-f03a47-2cbc00
+//Icons: https://material.io/icons/
 
 blue_bolt = #00B6FF;
 white = #FFFFFF;
+warm_white = #C6C6C6;
 jet = #2E3532;
 red_salsa = #F03A47;
 kelly_green = #2CBC00;
+mantis = #78D45C;
 
 colors = {};
 colors["background"] = blue_bolt;
@@ -12,8 +15,12 @@ colors["action-pane"] = white;
 colors["text-dark"] = jet;
 colors["bad"] = red_salsa;
 colors["good"] = kelly_green;
+colors["good-light"] = mantis;
+colors["checkbox-hover"] = warm_white;
 colors["text-light"] = white;
 colors["dark-border"] = jet;
+
+logoUrl = "../images/icons/IdeaDumpMain.png";
 
 body {
 	padding: 0;
@@ -24,26 +31,4 @@ body {
 	box-sizing: border-box;
 }
 
-form input[type=button],
-form input[type=submit],
-.button {
-	min-width: 120px;
-	display: inline-block;
-	background-color: colors["good"];
-	border: 0;
-	font-size: 20pt;
-	color: colors["text-light"];
-	padding: 16px;
-	margin: 8px;
-}
-
-form input[type=text],
-form input[type=password],
-form input[type="email"] {
-	width: 100%;
-	margin-bottom: 8px;
-	border: 1px solid colors["dark-border"];
-	font-size: 20pt;
-	padding: 4px;
-	border-radius: 4px;
-}
+@require "lib/forms.styl";

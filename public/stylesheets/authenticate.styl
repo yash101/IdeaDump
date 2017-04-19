@@ -1,29 +1,51 @@
 @require "style.styl";
 
 body {
+	#logo {
+		display: inline-block;
+		background-image: url("../images/logos/IdeaDumpMain.png");
+		background-size: contain;
+		background-repeat: no-repeat;
+		width: 100%;
+		min-width: 250px;
+		max-width: 540px;
+
+		height: 100vw;
+		max-height: 165px;
+		min-height: 77px;
+	}
 	background-color: colors["background"];
 	div.pane {
 		background-color: colors["action-pane"];
 		h1 {
 			padding: 0;
 			margin: 0;
-			margin-bottom: 8px;;
+			margin-bottom: 8px;
 		}
 	}
 	div.text-align-center {
+		margin-top: 60px;
 		width: 100%;
 		text-align: center;
 	}
 	div#authentication-pane {
-		margin-top: 120px;
+		margin-bottom: 60px;
 		display: inline-block;
 		width: 90%;
+		@media (max-width: 424px) {
+			padding: 16px;
+		}
+		@media (min-width: 425px) {
+			padding: 32px;
+		}
 		min-width: 250px;
 		max-width: 540px;
 		min-height: 32px;
-		padding: 32px;
 	}
 	div#form-templates {
 		display: none;
+	}
+	.remember:after {
+		content: "Remember Me?";
 	}
 }

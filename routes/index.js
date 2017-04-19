@@ -6,6 +6,14 @@ router.get('/', function(req, res, next) {
   res.render('index', {});
 });
 
+router.get('/login', function(req, res, next) {
+	res.render('index', {'form_type': 1});
+});
+
+router.get('/register', function(req, res, next) {
+	res.render('index', {'form_type': 2});
+});
+
 // router.get('/helloworld', function(req, res) {
 // 	res.render("helloworld", {title: 'Hello World!'});
 // });

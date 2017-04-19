@@ -1,30 +1,43 @@
 extends layout
 
 block header
+	meta(charset="utf-8")
+	meta(http-equiv="X-UA-Compatible", content="IE=edge")
+	meta(name="viewport", content="width=device-width, initial-scale=1")
+	meta(name="description", content="Log into IdeaDump")
 	title= "Log In or Sign Up!"
+
 	link(href="/stylesheets/authenticate.css", rel="stylesheet")
+
+	if form_type
+		script(type='text/javascript').
+			var pub = pub || {};
+			pub.defaultPageType = #{form_type};
 	script(src="/javascripts/index.js", type="text/javascript")
 
 block content
 	div(class="text-align-center")
+		div(id="logo")
 		div(class="pane", id="authentication-pane")
 
 	div(id="form-templates")
 		div(class="pane", id="login")
 			h1= "Log In!"
-			form(id="authform", method="post", action="/login")
+			form(id="authform", method="post", action="javascript:pub.login();")
 				input(type="text", placeholder="Username or Email", name="userid", required="true")
 				input(type="password", placeholder="Password", name="password", required="true")
-				input(type="checkbox", checked="false", name="remember")
+				div(class="singleradio")
+					input(type="checkbox", checked="false", name="remember", class="remember")
 				input(id="submitbtn", type="submit", value="Log In!")
-			a(id="switch", href="javascript:pub.switchForm();")= "Register"
+				hr
+			a(id="switch", href="javascript:pub.switchForm();", class="button")= "Register"
 		div(class="pane", id="register")
 			h1= "Register!"
-			form(id="authform", method="post", action="/register")
+			form(id="authform", method="post", action="javascript:pub.register();")
 				input(type="text", placeholder="Username", name="username", required="true")
 				input(type="email", placeholder="Email", name="email", required="true")
 				input(type="password", placeholder="Password", name="password", required="true")
 				input(type="password", placeholder="Repeat Password", name="repeat-password", required="true")
-				input(type="checkbox", checked="false", name="remember")
 				input(id="submitbtn", type="submit", value="Create Account!")
-			a(id="switch", href="javascript:pub.switchForm();")= "Log In"
+				hr
+			a(id="switch", href="javascript:pub.switchForm();", class="button")= "Log In"

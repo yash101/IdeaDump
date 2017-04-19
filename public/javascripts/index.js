@@ -1,13 +1,17 @@
 ;var pub = pub || {};
 (function init() {
 	$(document).ready(function ready() {
-		pub.registerForm();
+		if(pub.defaultPageType == 1) {
+			pub.logInForm();
+		} else {
+			pub.registerForm();
+		}
 	});
 
 	var formMethod = 1;
 	pub.logInForm = function logInForm() {
+		$("body .text-align-center .pane").remove();
 		var form = $("body .text-align-center");
-		form.empty();
 
 		var newForm = $("#form-templates > #login").clone(true);
 		newForm.attr("id", "authentication-pane");
@@ -16,8 +20,8 @@
 		formMethod = 1;
 	};
 	pub.registerForm = function registerForm() {
+		$("body .text-align-center .pane").remove();
 		var form = $("body .text-align-center");
-		form.empty();
 
 		var newForm = $("#form-templates > #register").clone(true);
 		newForm.attr("id", "authentication-pane")
