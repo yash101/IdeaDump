@@ -1,18 +1,24 @@
 @require "style.styl";
 
 body {
+	logoImageSize = image-size(logoUrl);
+	maxPaneWidth = 540px;
+	minPaneWidth = 250px;
 	#logo {
 		display: inline-block;
-		background-image: url("../images/logos/IdeaDumpMain.png");
+		background-image: url(logoUrl);
 		background-size: contain;
 		background-repeat: no-repeat;
 		width: 100%;
-		min-width: 250px;
-		max-width: 540px;
-
+		min-width: minPaneWidth;
+		max-width: maxPaneWidth;
 		height: 100vw;
-		max-height: 165px;
-		min-height: 77px;
+		max-height: maxPaneWidth * (logoImageSize[1] / logoImageSize[0])px;
+		min-height: minPaneWidth * (logoImageSize[1] / logoImageSize[0])px;
+	}
+	div.breaker {
+		display: block;
+		height: 0px;
 	}
 	background-color: colors["background"];
 	div.pane {

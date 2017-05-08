@@ -10,6 +10,8 @@
 
 	var formMethod = 1;
 	pub.logInForm = function logInForm() {
+		history.pushState({}, null, "/login");
+
 		$("body .text-align-center .pane").remove();
 		var form = $("body .text-align-center");
 
@@ -20,6 +22,8 @@
 		formMethod = 1;
 	};
 	pub.registerForm = function registerForm() {
+		history.pushState({}, null, "/register");
+
 		$("body .text-align-center .pane").remove();
 		var form = $("body .text-align-center");
 
@@ -37,6 +41,33 @@
 		}
 	};
 
-	pub.submitAuthenticationForm = function submitAuthenticationForm() {
+	pub.login = function login() {
+		jQuery.post("/auth/login")
+		$.ajax({
+			type: "POST",
+			url: "/auth/login",
+			data: {
+				"username": $("#authentication-pane input[name=userid]").val(),
+				"password": $("#authentication-pane input[name=password]").val(),
+				"remember": $("#authentication-pane input[name=remember]").val()
+			},
+			success: function(data) {
+				var recv = JSON.parse(data);
+			}
+		});
+	};
+	pub.register = function register() {
+		$.ajax({
+			type: "POST",
+			url: "/auth/login",
+			data: {
+				"email": $("#authentication-pane input[name=email]").val(),
+				"password": $("#authentication-pane input[name=password]").val(),
+				"confirmPassword": $("#authentication-pane input[name=repeat-password]").val()
+			},
+			success: function(data) {
+				var recv = JSON.parse(data);
+			}
+		});
 	};
 })();

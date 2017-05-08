@@ -10,12 +10,13 @@ var nib = require('nib');
 
 var environment = require('./env');
 
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk(environment.dbHost + ":" + environment.dbPort + "/" + environment.dbName);
-
 var index = require('./routes/index');
-var users = require('./routes/users');
+var auth = require('./routes/auth');
+
+var http = require('http');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var passportLocalStrategy = require('passport-local').Strategy;
 
 var app = express();
 
@@ -31,10 +32,12 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+
 app.use(stylus.middleware({
   src: __dirname + '/public',
   compile: compileStylus
 }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -46,7 +49,7 @@ app.use(function(req, res, next) {
 
 //Route setup
 app.use('/', index);
-app.use('/users', users);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

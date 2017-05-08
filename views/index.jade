@@ -18,6 +18,7 @@ block header
 block content
 	div(class="text-align-center")
 		div(id="logo")
+		div(class="breaker")
 		div(class="pane", id="authentication-pane")
 
 	div(id="form-templates")
@@ -34,7 +35,6 @@ block content
 		div(class="pane", id="register")
 			h1= "Register!"
 			form(id="authform", method="post", action="javascript:pub.register();")
-				input(type="text", placeholder="Username", name="username", required="true")
 				input(type="email", placeholder="Email", name="email", required="true")
 				input(type="password", placeholder="Password", name="password", required="true")
 				input(type="password", placeholder="Repeat Password", name="repeat-password", required="true")
