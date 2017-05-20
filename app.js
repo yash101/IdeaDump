@@ -6,7 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var env = require('./env');
+var env = require('./config/env');
 
 //Used by JSX
 var jsxMiddleware = require('jsx-middleware');
@@ -25,7 +25,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 
 //=======================[DATABASE]=================================
-var db = mongoose.connect(require('./get_db.js').path);
+var db = mongoose.connect(require('./config/get_db').path);
 
 //=======================[CREATE APP]===============================
 var app = express();
