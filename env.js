@@ -6,4 +6,7 @@
 	module.exports.db.name = process.env.MONGO_DB_NAME || 'ideadump';
 	module.exports.db.user = process.env.MONGO_USER || '';
 	module.exports.db.pass = process.env.MONGO_PASS || '';
+
+	module.exports.auth = {};
+	module.exports.SECRET = process.env.SECRET;
 })();

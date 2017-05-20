@@ -1,3 +1,4 @@
+//=======================[IMPORTS]==================================
 //Express stuff
 var express = require('express');
 var path = require('path');
@@ -5,69 +6,70 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-//Environment variables
 var env = require('./env');
-
-//Used by Passport
-var http = require('http');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var passportLocalStrategy = require('passport-local').Strategy;
-
-//Used by Stylus
-var stylus = require('stylus');
-var nib = require('nib');
-//Compiles a Stylus file
-var compileStylus = function compile(str, path) {
-	return stylus(str).set('filename', path).use(nib());
-};
 
 //Used by JSX
 var jsxMiddleware = require('jsx-middleware');
 
-//Routers
-var index = require('./routes/index');
-var users = require('./routes/users');
+//Used by Stylus
+var stylus = require('stylus');
+var nib = require('nib');
+var compileStylus = function compile(str, path) {
+	return stylus(str).set('filename', path).use(nib());
+};
 
-//App
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash = require('connect-flash');
+
+//=======================[DATABASE]=================================
+var db = mongoose.connect(require('./get_db.js').path);
+
+//=======================[CREATE APP]===============================
 var app = express();
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+if(env.favicon)
+  app.use(favicon(path.join(__dirname, 'public', env.favicon)));
 app.use(logger('dev'));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+//=======================[PASSPORT]=================================
+app.use(session({
+  secret: env.auth.SECRET || 'development-secret',
+  magAge: new Date(Date.now() + 3600000),
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  })
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
+require('./config/passport')(passport);
+
+//=======================[ROUTERS]==================================
+var index = require('./routes/index');
+var users = require('./routes/users');
 app.use('/', index);
 app.use('/users', users);
 
-//Stylus middleware
+
+//=======================[STYLUS+JSX]===============================
 app.use(stylus.middleware({
 	src: __dirname + '/public',
 	compile: compileStylus
 }));
-//JSx middleware
 app.use(jsxMiddleware(__dirname + '/public'));
 
+
+//=======================[STATIC SERVING]===========================
 app.use(express.static(path.join(__dirname, 'public')));
 
-var Account = require('./models/userAccount');
-
-passport.use(new passportLocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
-
-mongoose.connect('mongodb://' + env.db.host + ':' + env.db.port + '/' + env.db.name);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -76,6 +78,8 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+
+//=======================[ERROR HANDLING]===========================
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
