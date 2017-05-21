@@ -8,7 +8,6 @@ var isLoggedIn = function isLoggedIn(req, res, next) {
 	res.redirect('/');
 };
 
-
 /* GET home page. */
 router.get('/', function(req, res) {
 	console.log('in');
