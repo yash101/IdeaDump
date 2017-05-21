@@ -25,7 +25,8 @@ var passport = require('passport');
 var flash = require('connect-flash');
 
 //=======================[DATABASE]=================================
-var db = mongoose.connect(require('./config/get_db').path);
+var db_conf = require('./config/get_db');
+mongoose.connect(db_conf.path);
 
 //=======================[CREATE APP]===============================
 var app = express();
